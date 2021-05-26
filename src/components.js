@@ -103,7 +103,8 @@ export default class Components {
             }
 
             // Call component on element, saving instance to data for the element if it returns something
-            const componentInstance = this.library[initKey](
+            const componentInstance = this.library[initKey].call(
+              this,
               el, // Element initialising on
               init[initKey] // Args
             );
