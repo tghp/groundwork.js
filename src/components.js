@@ -10,17 +10,17 @@ export default class Components {
 
   getInitAttributeName() {
     if (this.namespace) {
-      return `x-gw-${this.namespace}-init`;
+      return `data-gw-${this.namespace}-init`;
     } else {
-      return `x-gw-init`;
+      return `data-gw-init`;
     }
   }
 
   getElementInstanceAttributeName() {
     if (this.namespace) {
-      return `x-gw-${this.namespace}`;
+      return `data-gw-${this.namespace}`;
     } else {
-      return `x-gw`;
+      return `data-gw`;
     }
   }
 
