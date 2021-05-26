@@ -43,10 +43,10 @@ For example:
 
 ```html
 <!-- In this example, no args are passed to the component  -->
-<div data-gw-main-init='{"video": {}}'>
-  <!-- In this example, we pass some args to the component -->
-  <div data-gw-main-init='{"video": { id: 123456, autoplay: false }}'></div>
-</div>
+<div data-gw-main-init='{"video": {}}'></div>
+
+<!-- In this example, we pass some args to the component -->
+<div data-gw-main-init='{"video": { id: 123456, autoplay: false }}'></div>
 ```
 
 Components should export a method, this is what is called with the DOM node as the first argument and the args as the second:
