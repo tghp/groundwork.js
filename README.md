@@ -23,6 +23,24 @@ groundworkMain.components.add("video", require("./main/components/video"));
 groundworkMain.run();
 ```
 
+or 
+
+```js
+import Groundwork from "@tghp/groundwork.js";
+import globalInclude from './main/includes/globals';
+import videoComponent from './main/components/video';
+const groundworkMain = new Groundwork("main");
+
+// Add includes
+groundworkMain.includes.add("header", globalInclude);
+
+// Add components
+groundworkMain.components.add("video", videoComponent);
+
+// Initialise
+groundworkMain.run();
+```
+
 Refer to concepts below to understand this usage.
 
 ## Concepts
@@ -37,7 +55,7 @@ Includes are run every time, as soon as groundwork is run. Each include should r
 
 ### Components
 
-Inspired by [Magento 2's `data-mage-init`](https://devdocs.magento.com/guides/v2.4/javascript-dev-guide/javascript/js_init.html#declarative-notation), components execute as a result of `` `data-gw-${namespace}-init` `` attributes. Pass this attribute JSON where the root key is the name of the component and the value is another object providing arguments to the component (if needed).
+Inspired by [Magento 2's `data-mage-init`](https://developer.adobe.com/commerce/frontend-core/javascript/init/#declarative-notation), components execute as a result of `` `data-gw-${namespace}-init` `` attributes. Pass this attribute JSON where the root key is the name of the component and the value is another object providing arguments to the component (if needed).
 
 For example:
 
