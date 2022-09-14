@@ -1,4 +1,4 @@
-export type ComponentFunction<args extends Object> = (args: args, el: Element) => void;
+export type ComponentFunction<args extends Object> = (elem: Element, args: args) => void;
 
 declare class Components {
     getInitAttributeName(): string;
