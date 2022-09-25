@@ -1,4 +1,4 @@
-export type ComponentFunction<args extends Object> = (elem: Element, args: args) => void;
+export type ComponentFunction<args extends Object> = (elem: HTMLElement, args: args) => void;
 
 declare class Components {
     getInitAttributeName(): string;
@@ -6,7 +6,7 @@ declare class Components {
     add(key: string, fn: Function): this;
     addInstance(el: HTMLElement, elementIdentifier: string, componentKey: string, fn: Function): this;
     getInstance(elementIdentifier: string, componentKey: string): this;
-    getInstances(componentKey): [Element];
+    getInstances(componentKey): [HTMLElement];
     run(): void;
 }
 
