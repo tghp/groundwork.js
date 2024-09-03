@@ -78,7 +78,17 @@ export default class Components {
         .querySelectorAll(`[${this.getInitAttributeName()}]`)
         .forEach((el) => {
           // Get init definition
-          const init = JSON.parse(el.getAttribute(this.getInitAttributeName()));
+          let init;
+          try {
+            init = JSON.parse(el.getAttribute(this.getInitAttributeName()));
+          } catch (e) {
+            console.error(
+              `Error parsing init attribute for element: ${el.getAttribute(
+                this.getInitAttributeName()
+              )}`
+            );
+            return;
+          }
 
           const elementIdentifer = Math.random().toString(36).substr(2, 12);
 
