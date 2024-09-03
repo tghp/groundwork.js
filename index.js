@@ -2,12 +2,12 @@ import Components from "./src/components";
 import Includes from "./src/includes";
 
 export const getInstance = function (namespace) {
-  if (!global._groundworkjs) {
-    global._groundworkjs = {};
+  if (!globalThis._groundworkjs) {
+    globalThis._groundworkjs = {};
   }
 
-  if (global._groundworkjs[namespace]) {
-    return global._groundworkjs[namespace];
+  if (globalThis._groundworkjs[namespace]) {
+    return globalThis._groundworkjs[namespace];
   }
 };
 
@@ -22,7 +22,7 @@ class Groundwork {
     this.components = new Components(this.namespace);
     this.includes = new Includes();
 
-    global._groundworkjs[this.namespace] = this;
+    globalThis._groundworkjs[this.namespace] = this;
   }
 
   run() {
