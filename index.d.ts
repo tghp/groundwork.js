@@ -3,10 +3,16 @@ export type ComponentFunction<
   TArgs extends Object
 > = (elem: TElem, args: TArgs) => void;
 
+type CommonOptions = {
+  schedulerYield?: boolean;
+};
+
+type ComponentOptions = CommonOptions;
+
 declare class Components {
   getInitAttributeName(): string;
   getElementInstanceAttributeName(): string;
-  add(key: string, fn: Function): this;
+  add(key: string, fn: Function, opts?: ComponentOptions): this;
   addInstance(
     el: HTMLElement,
     elementIdentifier: string,
@@ -18,8 +24,10 @@ declare class Components {
   run(): void;
 }
 
+type IncludeOptions = CommonOptions;
+
 declare class Includes {
-  add(key: string, fn: Function): this;
+  add(key: string, fn: Function, opts?: IncludeOptions): this;
   run(): this;
 }
 

@@ -1,4 +1,4 @@
-import domReady from "@wordpress/dom-ready";
+import domReady from '@wordpress/dom-ready';
 
 export default class Components {
   library = {};
@@ -24,8 +24,13 @@ export default class Components {
     }
   }
 
-  add(key, fn) {
+  add(key, fn, opts = {}) {
     this.library[key] = fn;
+
+    if (opts.schedulerYield) {
+      this.library[key].schedulerYield = opts.schedulerYield;
+    }
+
     return this;
   }
 
@@ -104,7 +109,7 @@ export default class Components {
               return;
             }
 
-            if (typeof this.library[initKey] !== "function") {
+            if (typeof this.library[initKey] !== 'function') {
               console.error(
                 `Component "${initKey}" found but was not a function: type is "${typeof this
                   .library[initKey]}"`
@@ -112,20 +117,36 @@ export default class Components {
               return;
             }
 
-            // Call component on element, saving instance to data for the element if it returns something
-            const componentInstance = this.library[initKey].call(
-              this,
-              el, // Element initialising on
-              init[initKey] // Args
-            );
-
-            if (componentInstance) {
-              this.addInstance(
-                el,
-                elementIdentifer,
-                initKey,
-                componentInstance
+            function callComponent() {
+              // Call component on element, saving instance to data for the element if it returns something
+              const componentInstance = this.library[initKey].call(
+                this,
+                el, // Element initialising on
+                init[initKey] // Args
               );
+
+              if (componentInstance) {
+                this.addInstance(
+                  el,
+                  elementIdentifer,
+                  initKey,
+                  componentInstance
+                );
+              }
+            }
+
+            if (this.library[initKey].schedulerYield) {
+              (async () => {
+                if ('scheduler' in window && 'yield' in window.scheduler) {
+                  await window.scheduler.yield();
+                  callComponent();
+                } else {
+                  await new Promise((resolve) => setTimeout(resolve, 0));
+                  callComponent();
+                }
+              })();
+            } else {
+              callComponent();
             }
           });
 
